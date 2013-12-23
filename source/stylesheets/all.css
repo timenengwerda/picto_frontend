@@ -1,0 +1,194 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	font-size: 10px;
+	font-family: Arial, tahoma;
+}
+
+
+.topbar {
+	width: 100%;
+	height: 15em;
+}
+
+	.topbar .timebar {
+		float: left;
+		width: 40%;
+		height: 100%;
+	}
+
+		.timebar .current_time_analogue, .timebar .current_time_digital {
+			float: left;
+			height: 100%;
+		}
+
+		.timebar .current_time_digital .digital_clock div {
+			float: left;
+			width: 1.4em;
+			height: 1.6em;
+			border-radius: 0.2em;
+			font-size: 3em;
+			color: #FFF;
+			text-align: center;
+			line-height: 1.6em;
+			background: #111;
+			margin: 0 0.1em;
+			margin-top: 25%;
+		}
+
+
+.template, .preloader {
+	display: none;
+}
+
+.clients {
+	float: left;
+	width: 60%;
+	height: 100%;
+}
+
+	.clients ul {
+		float: right;
+	}
+
+	.clients ul li {
+		list-style-type: none;
+		float: left;
+		width: 10em;
+		height: 10em;
+		margin: 0 0.8em;
+		cursor: pointer;
+	}
+
+		a.client_link {
+			display: block;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			border-radius: 100%;
+			text-align: center;
+			vertical-align: center;
+		}
+
+			a.client_link img {
+				width: 100%;
+			}
+
+.activity_list, .activities_holder {
+	width: 100%;
+	overflow: hidden;
+}
+
+.activity_list {
+	position: relative;
+}
+
+	.activity_list .activity {
+		float: left;
+		height: 100%;
+	}
+
+		.activity .client_list_for_activity {
+			float: left;
+			width: 35%;
+			height: 100%;
+		}
+
+			.client_list_for_activity .single_client {
+				float: left;
+				width: 10em;
+				height: 12em;
+				margin: 1em;
+			}
+
+				.client_list_for_activity .single_client a {
+					display: block;
+					overflow: hidden;
+					width: 10em;
+					height: 10em;
+					border-radius: 100%;
+					text-align: center;
+					vertical-align: center;
+					border: 0.2em solid #000;
+				}
+					.client_list_for_activity .single_client img {
+						float: left;
+						width: 100%;
+					}
+
+					.client_list_for_activity .single_client span.client_name {
+						display: block;
+						float: left;
+						width: 100%;
+						height: 100%;
+						text-align: center;
+						font-size: 2em;
+						color: #000;
+					}
+
+
+.activity .item {
+	float: left;
+	width: 65%;
+	background: red;
+}
+
+	.activity .item img {
+		height: 45%;
+	}
+
+
+
+
+/**CLOCK**/
+
+.digital_clock {
+	float: left;
+}
+
+	.digital_clock .hour, .digital_clock .minute, .digital_clock .second {
+		float: left;
+
+	}
+
+
+.analogue_clock {
+	width: 150px;
+	height: 150px;
+	border-radius: 100%;
+	background: grey;
+	list-style-type: none;
+	background: url(../images/clockface.png);
+	position: relative;
+} 
+
+	.analogue_clock .second, .analogue_clock .minute, .analogue_clock .hour {
+		position: absolute;
+		width: 8px;
+		height: 150px;
+		top: 0px;
+		left: 71px;
+		-webkit-transform: rotate(45deg);
+		-moz-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		-o-transform: rotate(45deg);
+		transform: rotate(45deg);
+	}
+
+	.analogue_clock .second {
+		background: url(../images/sechand.png);
+		z-index: 3;
+	}
+
+	.analogue_clock .minute {
+		background: url(../images/minhand.png);
+		z-index: 2;
+	}
+
+	.analogue_clock .hour {
+		background: url(../images/hourhand.png);
+		z-index: 1;
+	}
