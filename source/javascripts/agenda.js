@@ -50,16 +50,15 @@ function buildUserlist(users, parentDiv) {
 function buildActivity(activity) {
 	var activityTemplateParent = $('.activity_list');
 	var activityTemplate = activityTemplateParent.find('.template').eq(0);
-
 	if (activityTemplate.html() != "") {
 		//Since this function is in a loop we dont have to loop the activities. There's always just one!
 		var template = activityTemplate.clone();
-		if (activity.pictogram.url) {
-			template.find('.item .pictogram_image').attr('src', activity.pictogram.url);
+		if (activity.activity.pictogram_url) {
+			template.find('.item .pictogram_image').attr('src', globalData.rootDomain + activity.activity.pictogram_url);
 		}
-		template.find('.item .pictogram_image').attr('title', activity.title);
+		template.find('.item .pictogram_image').attr('title', activity.activity.title);
 
-		template.find('.item .activity_title').html(activity.title);
+		template.find('.item .activity_title').html(activity.activity.title);
 
 		//Remove the template class(This is used by CSS to hide)
 		template.removeClass('template');
@@ -69,7 +68,7 @@ function buildActivity(activity) {
 		var analogueItemClock = setupClock(template.find('.item_time_analogue'), 'analogue', activity.start_date);
 		
 		activityTemplateParent.append(template);
-		buildUserlist(activity.users, template);
+		//buildUserlist(activity.activity.users, template);
 	}
 }
 

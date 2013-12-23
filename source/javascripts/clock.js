@@ -6,7 +6,7 @@ function setupClock(theClockDiv, clockType, indicatedTime) {
 	} else if (clockType == 'analogue') {
 		clk = new AnalogueClock(theClockDiv);
 	}
-
+	console.log('->'+indicatedTime)
 	var indiTime = (indicatedTime) ? indicatedTime : null;
 
 	clk.prototype = new baseClock(indiTime);	
@@ -121,6 +121,7 @@ function baseClock(indicatedTime) {
 
 	this.setCurrentTime = function() {
 		if (this.indicatedTime) {
+			console.log(railsDateToTimestamp(this.indicatedTime));
 			this.date = new Date(railsDateToTimestamp(this.indicatedTime));
 		} else {
 			this.date = new Date();

@@ -6,9 +6,9 @@ function getActivitiesByClient(clientId, callback) {
 		url: clientUrl,
 		crossdomain: true,
 		dataType: "jsonp",
-		done: function (activities) {
+		success: function (client) {
 			if (callback) {
-				callback(activities);
+				callback(client);
 			}
 		},
 		fail: function () {

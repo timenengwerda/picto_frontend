@@ -13,10 +13,15 @@ function railsDateToTimestamp(date) {
 
 	//The correct datetime has to be split into a date and a time
 	dateTime = newDate.split(' ');
-	newDate = dateTime[0].split("-");
+	newDate = dateTime[0].split("/");
 
 	//reformat the date to yyyy, mm, dd hh:mm:ss
 	var realDate = newDate[2] + ", " + newDate[1] + ", " + newDate[0] + " " + dateTime[1];
 
-	return new Date(realDate).getTime();
+	//add an hour to the timestamp
+	return new Date(realDate).getTime() + 3600000;
+}
+
+function getTimeDifference(x, y) {
+	return Math.abs((x - y) / 1000);
 }

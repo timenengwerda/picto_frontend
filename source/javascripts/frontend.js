@@ -44,11 +44,11 @@ function initPage(options) {
 
 	$('body').css('background-color', bgColor);
 	getClientsByGroup(options.id, function(clients) {
-		console.log(clients);
 		if (clients != null) {
 			buildClientbar(clients);
+		} else {
+			alert('geen clienten');
 		}
-		alert('geen clienten');
 	});
 }
 
