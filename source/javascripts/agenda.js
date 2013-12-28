@@ -11,12 +11,47 @@ function buildAgenda(obj) {
 	}
 }
 
+var isAnimatingSlider = false;
+
 function alignActivities() {
 	$('.activity').width($('body').width());
 	//Count the activities and widen the activity list container to the total width * amount
 	var amountOfActivities = $('.activity').not('.template').length;
 
 	$('.activity_list').width($('.activity').width() * amountOfActivities);
+   
+	//Enable swiping...
+	$(".activity_list").swipe( {
+		//Generic swipe handler for all directions
+		swipe:function(event, direction, distance, duration, fingerCount) {
+			var maySwipe = true;
+			var currentPos = $(this).offset().left;
+
+			if (direction == 'left') {
+				var positionToSwipeTo =  currentPos - $(this).find('.activity').width();
+
+				//calculate the future pos; If that is lower(its minus) than the total width(in minus) than dont swipe
+				var futurePos = (currentPos - $(this).find('.activity').width());
+				if (futurePos == '-' + $(this).width()) {
+					maySwipe = false;
+				}
+			} else if(direction == 'right') {
+				var positionToSwipeTo =  currentPos + $(this).find('.activity').width();
+				if ($(this).offset().left == 0) {
+					maySwipe = false;
+				}
+			}
+
+			if (maySwipe && !isAnimatingSlider) {
+				isAnimatingSlider = true;
+				$(this).animate({
+					left: positionToSwipeTo
+				}, 800, function () {
+					isAnimatingSlider = false;
+				});
+			}
+		}, threshold: 125
+	});
 }
 
 function buildUserlist(users, parentDiv) {
@@ -48,13 +83,16 @@ function buildUserlist(users, parentDiv) {
 }
 
 function buildActivity(activity) {
+
 	var activityTemplateParent = $('.activity_list');
 	var activityTemplate = activityTemplateParent.find('.template').eq(0);
+	activityTemplateParent.css('left', 0);
 	if (activityTemplate.html() != "") {
+		
 		//Since this function is in a loop we dont have to loop the activities. There's always just one!
 		var template = activityTemplate.clone();
-		if (activity.activity.pictogram_url) {
-			template.find('.item .pictogram_image').attr('src', globalData.rootDomain + activity.activity.pictogram_url);
+		if (activity.activity.pictogram_url_medium) {
+			template.find('.item .pictogram_image').attr('src', globalData.rootDomain + activity.activity.pictogram_url_medium);
 		}
 		template.find('.item .pictogram_image').attr('title', activity.activity.title);
 

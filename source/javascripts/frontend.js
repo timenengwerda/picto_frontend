@@ -11,19 +11,14 @@ $(document).ready(function() {
 		getGroup(currentGroup, function(groupOptions) {
 			initPage(groupOptions);
 		});
-
-		
-/*
-		
-
-		getAllActivities(function(response) {
-			stopPreloader();
-			buildAgenda(response);
-		});*/
 	}
 });
 
 function initPage(options) {
+	startPreloader();
+	//define the height of the activities_holder div ( 100% minus the topbar)
+	$('.activities_holder').height($('body').height() - $('.topbar').innerHeight());
+
 	//Digital clock
 	if (options.clocktype == 1) {
 		currentTimeClock = setupClock($('.current_time_digital'), 'digital');
@@ -44,11 +39,18 @@ function initPage(options) {
 
 	$('body').css('background-color', bgColor);
 	getClientsByGroup(options.id, function(clients) {
+		stopPreloader();
 		if (clients != null) {
 			buildClientbar(clients);
 		} else {
 			alert('geen clienten');
 		}
+	});
+	
+	getAllActivities(currentGroup, function(activities) {
+		stopPreloader();
+		alert(1);
+		buildAgenda(activities);
 	});
 }
 

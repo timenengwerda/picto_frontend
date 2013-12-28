@@ -3,6 +3,11 @@
 	padding: 0px;
 }
 
+body, html {
+	height: 100%;
+	width: 100%;
+}
+
 body {
 	font-size: 10px;
 	font-family: Arial, tahoma;
@@ -80,10 +85,12 @@ body {
 .activity_list, .activities_holder {
 	width: 100%;
 	overflow: hidden;
+	position: relative;
 }
 
 .activity_list {
-	position: relative;
+	position: absolute;
+	left: 0;
 }
 
 	.activity_list .activity {
@@ -133,6 +140,7 @@ body {
 .activity .item {
 	float: left;
 	width: 65%;
+	height: 100%;
 	background: red;
 }
 

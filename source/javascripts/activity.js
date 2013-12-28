@@ -20,17 +20,18 @@ function getActivitiesByClient(clientId, callback) {
 }
 
 
-function getAllActivities(callback) {
+function getAllActivities(groupId, callback) {
 	startPreloader();
 	wipeActivityList();
-	var activityUrl = globalData.rootDomain + 'activities.json';
+	var activityUrl = globalData.rootDomain + 'groups/' + groupId + '/activities.json';
+	//var clientUrl = globalData.rootDomain + 'clients/' + 1 + '/activities.json';
 	$.ajax({
 		url: activityUrl,
 		crossdomain: true,
 		dataType: "jsonp",
-		done: function (activities) {
+		success: function (act) {
 			if (callback) {
-				callback(activities);
+				callback(act);
 			}
 		},
 		fail: function () {

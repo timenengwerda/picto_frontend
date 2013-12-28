@@ -6,7 +6,7 @@ function setupClock(theClockDiv, clockType, indicatedTime) {
 	} else if (clockType == 'analogue') {
 		clk = new AnalogueClock(theClockDiv);
 	}
-	console.log('->'+indicatedTime)
+
 	var indiTime = (indicatedTime) ? indicatedTime : null;
 
 	clk.prototype = new baseClock(indiTime);	
@@ -121,7 +121,6 @@ function baseClock(indicatedTime) {
 
 	this.setCurrentTime = function() {
 		if (this.indicatedTime) {
-			console.log(railsDateToTimestamp(this.indicatedTime));
 			this.date = new Date(railsDateToTimestamp(this.indicatedTime));
 		} else {
 			this.date = new Date();
@@ -143,7 +142,7 @@ function baseClock(indicatedTime) {
 			if (!this.indicatedTime) {
 				this.setCurrentTime();
 			}
-		}, this), 3000);
+		}, this), 40000);
 	}
 
 	this.addZero = function (min_or_sec) {
