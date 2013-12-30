@@ -45,6 +45,7 @@ function buildClientbar(clients) {
 		var list = $('<ul>');
 
 		for (var i in clients) {
+
 			//Create a list item for each client
 			var clientItem = theTemplate.clone();
 

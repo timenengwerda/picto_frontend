@@ -2,7 +2,7 @@
 title: Frontend Pictogenda
 ---
 <section class="topbar">
-	<article class="timebar">
+	<article class="timebar box">
 		<div class="current_time_analogue">
 			<ul class="analogue_clock template">
 				<li class="hour"></li>
@@ -18,7 +18,7 @@ title: Frontend Pictogenda
 			</div>
 		</div>
 	</article>
-	<article class="clients">
+	<article class="clients box">
 		<ul class="client_list">
 			<li class="template">
 				<a href="#" id="" class="client_link">
@@ -26,7 +26,15 @@ title: Frontend Pictogenda
 				</a>
 				<span class="client_name"></span>
 			</li>
+			<li class="client_link_all">
+				<a href="#all" id="">
+					<img src="" title="" class="client_list_avatar">
+					<span class="client_name">Alle cli&euml;nten</span>
+				</a>
+				
+			</li>
 		</ul>
+		<span class="toggleClients"></span>
 	</article>
 </section>
 <section class="preloader">
@@ -43,26 +51,25 @@ title: Frontend Pictogenda
 					<span class="client_name"></span>
 				</div>
 			</div>
-			<div class="item">
+			<div class="item box">
 				<section class="the_item">
 					<img src="#" class="pictogram_image" title="">
 					<h1 class="activity_title"></h1>
 				</section>
 				<section class="item_timers">
-					<section class="item_time_digital">
-						<div class="digital_clock template">
-							<div class="hour"></div>
-							<div class="minute"></div>
-							<div class="second"></div>
-						</div>
-					</section>
-
 					<section class="item_time_analogue">
 						<ul class="analogue_clock template">
 							<li class="hour"></li>
 							<li class="minute"></li>
 							<li class="second"></li>
 						</ul>
+					</section>
+					<section class="item_time_digital">
+						<div class="digital_clock template">
+							<div class="hour"></div>
+							<div class="minute"></div>
+							<div class="second"></div>
+						</div>
 					</section>
 				</section>
 			</div>

@@ -1,10 +1,36 @@
+var firstActivityTime = null;
+var secondActivityTime = null;
+var activitiesArr = [];
+var autoSlideInterval = null;
+//Put all activity times in an array. When an activity is passed the currentActivityInArray is highered
+//So the system can maintain that as the next 'to come' time
+var activityTimes = [];
+var currentActivityInArray = 0;
 function buildAgenda(obj) {
+	$('.activity_list').css('left', 0);
+	activitiesArr = [];
+	secondActivityTime = null;
+	activityTimes = [];
+	currentActivityInArray = 0;
+	setTimeout(autoSlideInterval);
+	autoSlideInterval = null;
+
 	if (obj.length > 0) {
 		$('.activity_list').height($(window).height() - $('.topbar').height());
+		var count = 0;
 		for (var o in obj) {
-			//Loop through all the activities received one by one and build the activity and the userlist
-			buildActivity(obj[o]);
+			//Save the activity IDs in an array to avoid duplicates
+			if ($.inArray(obj[o].activity.id, activitiesArr) < 0) {
+				activitiesArr.push(obj[o].activity.id);
+				
+				activityTimes.push(railsDateToTimestamp(obj[o].start_date));
+
+				//Loop through all the activities received one by one and build the activity and the userlist
+				buildActivity(obj[o]);
+				count++;
+			}
 		}
+
 
 		//When the activities are built, align them
 		alignActivities();
@@ -35,6 +61,11 @@ function alignActivities() {
 				if (futurePos == '-' + $(this).width()) {
 					maySwipe = false;
 				}
+
+				//Reset the autoslider interval and set it after 10 seconds
+				setTimeout(autoSlideInterval);
+				autoSlideInterval = null
+
 			} else if(direction == 'right') {
 				var positionToSwipeTo =  currentPos + $(this).find('.activity').width();
 				if ($(this).offset().left == 0) {
@@ -52,6 +83,38 @@ function alignActivities() {
 			}
 		}, threshold: 125
 	});
+
+	slideAuto();
+	autoSlideInterval = setInterval(function() {
+		slideAuto();
+	}, 4000);
+}
+
+function slideAuto() {
+	var maySwipe = true;
+	var currentPos = $('.activity_list').offset().left;
+	var now = new Date().getTime();
+	//If the currentTime is higher than the first item and the 2nd activity time is lower than now, slide it
+	if (now > activityTimes[currentActivityInArray]) {
+		currentActivityInArray++;
+		var positionToSwipeTo =  currentPos - $('.activity').first().width();
+
+		//calculate the future pos; If that is lower(its minus) than the total width(in minus) than dont swipe
+		var futurePos = (currentPos - $('.activity').first().width());
+		if (futurePos == '-' + $('.activity_list').width()) {
+			maySwipe = false;
+		}
+
+		if (maySwipe && !isAnimatingSlider) {
+			isAnimatingSlider = true;
+			$('.activity_list').animate({
+				left: positionToSwipeTo
+			}, 800, function () {
+				isAnimatingSlider = false;
+			});
+		}
+
+	}
 }
 
 function buildUserlist(users, parentDiv) {
@@ -102,8 +165,23 @@ function buildActivity(activity) {
 		template.removeClass('template');
 
 
-		var digitalItemClock = setupClock(template.find('.item_time_digital'), 'digital', activity.start_date);
-		var analogueItemClock = setupClock(template.find('.item_time_analogue'), 'analogue', activity.start_date);
+		//var digitalItemClock = setupClock(template.find('.item_time_digital'), 'digital', activity.start_date);
+		//var analogueItemClock = setupClock(template.find('.item_time_analogue'), 'analogue', activity.start_date);
+		//Digital clock
+		if (groupOptions.clocktype == 1) {
+			var digitalItemClock = setupClock(template.find('.item_time_digital'), 'digital', activity.start_date);
+		}
+
+		//analogue clock
+		if (groupOptions.clocktype == 2) {
+			var analogueItemClock = setupClock(template.find('.item_time_analogue'), 'analogue', activity.start_date);
+		}
+
+		//both clocks
+		if (groupOptions.clocktype == 3) {
+			var digitalItemClock = setupClock(template.find('.item_time_digital'), 'digital', activity.start_date);
+			var analogueItemClock = setupClock(template.find('.item_time_analogue'), 'analogue', activity.start_date);
+	}
 		
 		activityTemplateParent.append(template);
 		//buildUserlist(activity.activity.users, template);
