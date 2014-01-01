@@ -139,41 +139,58 @@ body {
 }
 
 	.clients .toggleClients {
-		width: 15%;
-		height: 35%;
+		width: 10%;
+		height: 25%;
 		display: block;
-		background: green;
 		position: absolute;
 		cursor: pointer;
-		left: 35%;
-		bottom: -35%;
+		left: 40%;
+		bottom: -25%;
 	}
 
-	.clients ul {
+		.toggleClients img {
+			width: 100%;
+			height: 100%;
+		}
+
+	ul.client_list {
 		float: right;
 	}
 
-	.clients ul li {
+	 ul.client_list li {
 		list-style-type: none;
 		float: left;
-		width: 10em;
-		height: 10em;
-		margin: 0 0.8em;
+		padding: 3px 5px;
+		margin: 0 0.3em;
 		cursor: pointer;
+		background: #fef2df;
 	}
 
-		a.client_link {
+		ul.client_list li img {
+			border: 1px solid #666;
+		}
+
+		a.client_link, .client_link_all a {
 			display: block;
 			overflow: hidden;
 			width: 100%;
 			height: 100%;
-			border-radius: 100%;
 			text-align: center;
+			text-decoration: none;
 			vertical-align: center;
 		}
 
 			a.client_link img {
+				width: 100px;
+				height: 100px;
+			}
+
+			span.client_name {
+				display: block;
 				width: 100%;
+				font-size: 2em;
+				color: #272727;
+				text-align: center;
 			}
 
 .activity_list, .activities_holder {
@@ -194,43 +211,33 @@ body {
 
 		.activity .client_list_for_activity {
 			float: left;
-			width: 25%;
+			width: 23%;
 			padding: 10px;
-			height: 100%;
-			margin: 1% 0 0 1%;
+			height: 94%;
+			margin-left: 1%;
+			margin-right: 2%;
+			background: #FFF;
+			position: relative;
 		}
 
-			.client_list_for_activity .single_client {
-				float: left;
-				width: 10em;
-				height: 12em;
-				margin: 1em;
+			.client_list_for_activity .arrow {
+				width: 35px;
+				height: 69px;
+				top: 100px;
+				right: -35px;
+				position: absolute;
 			}
 
-				.client_list_for_activity .single_client a {
-					display: block;
-					overflow: hidden;
-					width: 10em;
-					height: 10em;
-					border-radius: 100%;
-					text-align: center;
-					vertical-align: center;
-					border: 0.2em solid #000;
-				}
-					.client_list_for_activity .single_client img {
-						float: left;
-						width: 100%;
-					}
+			.client_list_for_activity .client_list {
+				float: left;
+				padding-left: 4%;
+			}
 
-					.client_list_for_activity .single_client span.client_name {
-						display: block;
-						float: left;
-						width: 100%;
-						height: 100%;
-						text-align: center;
-						font-size: 2em;
-						color: #000;
-					}
+				.client_list_for_activity .client_list li {
+					background: #FFF !important;
+					margin-top: 10px;
+				}
+
 
 .box {
 	border: 1px solid #FFF;
@@ -251,9 +258,40 @@ body {
 	margin-left: 1%;
 }
 
-	.activity .item img {
-		height: 45%;
+	.item {
+		position: relative;
 	}
+
+	.activity .item .the_item {
+		height: 60%;
+		left: 5%;
+		top: 2%;
+		position: relative;
+	}
+
+	.activity .the_item img {
+		height: 85%;
+		position: absolute;
+	}
+
+		.the_item .activity_title {
+			color: #FFF;
+			position: absolute;
+			bottom: 0;
+			display: block;
+			height: 15%;
+			font-size: 5em;
+			text-shadow: 1px 1px 1px #000;
+		}
+
+
+	.item .item_timers {
+		position: absolute;
+		top: 2%;
+		right: 0px;
+	}
+
+
 
 
 

@@ -30,8 +30,7 @@ function buildAgenda(obj) {
 				count++;
 			}
 		}
-
-
+		
 		//When the activities are built, align them
 		alignActivities();
 	}
@@ -118,29 +117,13 @@ function slideAuto() {
 }
 
 function buildUserlist(users, parentDiv) {
-	if (users.length > 0) {
-		//Get the parent template(On which to append the template to)
-		var userTemplateParent = parentDiv.find('.user_list_for_activity');
-		//Get the template that will be cloned
-		var userTemplate = userTemplateParent.find('.template').eq(0);
-		if (userTemplate.html() != "undefined") {
-			//Loop for each user
-			for (var i in users) {
-				//Clone the template
-				template = userTemplate.clone();
-
-				//Add the avatar
-				template.find('.user_list_avatar').attr('src', users[i].avatar);
-				template.find('.user_list_avatar').attr('title', users[i].name);
-
-				template.find('.user_name').html(users[i].name);
-
-				//Remove the template class(This is used by CSS to hide)
-				template.removeClass('template');
-
-				//Prepend it to the parent
-				userTemplateParent.prepend(template);
-			}
+	parentDiv.find('.client_list_for_activity .client_list').html('');
+	for (var i in users) {
+		//console.log(users[i]);
+		if (users[i] != 'undefined') {
+			var tmplate = $('.topbar .client_list').find('#'+ users[i].id);
+			//console.log(tmplate);
+			parentDiv.find('.client_list_for_activity .client_list').append('<li>' + tmplate.parent('li').html()+'</li>');
 		}
 	}
 }
@@ -181,10 +164,10 @@ function buildActivity(activity) {
 		if (groupOptions.clocktype == 3) {
 			var digitalItemClock = setupClock(template.find('.item_time_digital'), 'digital', activity.start_date);
 			var analogueItemClock = setupClock(template.find('.item_time_analogue'), 'analogue', activity.start_date);
-	}
-		
+		}
+
 		activityTemplateParent.append(template);
-		//buildUserlist(activity.activity.users, template);
+		buildUserlist(activity.client, template);
 	}
 }
 

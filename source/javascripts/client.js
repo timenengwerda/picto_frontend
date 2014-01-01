@@ -37,7 +37,7 @@ function getClientsByGroup(groupId, callback) {
 }
 
 function buildClientbar(clients) {
-	var templateParent = $('.client_list');
+	var templateParent = $('.topbar .client_list');
 	var theTemplate = templateParent.find('.template').eq(0);
 
 	if (theTemplate.html() != 'undefined') {
