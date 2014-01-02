@@ -6,6 +6,7 @@ var autoSlideInterval = null;
 //So the system can maintain that as the next 'to come' time
 var activityTimes = [];
 var currentActivityInArray = 0;
+var hasAlerted = false;
 function buildAgenda(obj) {
 	$('.activity_list').css('left', 0);
 	activitiesArr = [];
@@ -51,7 +52,7 @@ function alignActivities() {
 		swipe:function(event, direction, distance, duration, fingerCount) {
 			var maySwipe = true;
 			var currentPos = $(this).offset().left;
-
+			hasAlerted = false;
 			if (direction == 'left') {
 				var positionToSwipeTo =  currentPos - $(this).find('.activity').width();
 
@@ -64,12 +65,15 @@ function alignActivities() {
 				//Reset the autoslider interval and set it after 10 seconds
 				setTimeout(autoSlideInterval);
 				autoSlideInterval = null
+				currentActivityInArray--;
 
 			} else if(direction == 'right') {
 				var positionToSwipeTo =  currentPos + $(this).find('.activity').width();
 				if ($(this).offset().left == 0) {
 					maySwipe = false;
 				}
+
+				currentActivityInArray++;
 			}
 
 			if (maySwipe && !isAnimatingSlider) {
@@ -89,12 +93,17 @@ function alignActivities() {
 	}, 4000);
 }
 
+var alertSound = new Audio('/alert.mp3');
+
 function slideAuto() {
 	var maySwipe = true;
 	var currentPos = $('.activity_list').offset().left;
 	var now = new Date().getTime();
-	//If the currentTime is higher than the first item and the 2nd activity time is lower than now, slide it
-	if (now > activityTimes[currentActivityInArray]) {
+
+	//Leave the slide for 5 minutes longer than the current time. The activity for 12:00 slides at 12:05
+	//If the currentTimeis higher than the first item(+5 minutes) and the 2nd activity time is lower than now, slide it
+	if (now > (activityTimes[currentActivityInArray] + (5*60000))) {
+		hasAlerted = false;
 		currentActivityInArray++;
 		var positionToSwipeTo =  currentPos - $('.activity').first().width();
 
@@ -112,7 +121,18 @@ function slideAuto() {
 				isAnimatingSlider = false;
 			});
 		}
-
+	} else {
+		//The alert is in the ELSE to prevent it from alert when the first activity(when refreshing for example) gets slid right away
+		//5 minutes in the past
+		var alertTime = now + (5*60000);
+		if (alertTime > activityTimes[currentActivityInArray] && !hasAlerted) {
+			
+			alertSound.play();
+			var to = setTimeout(function (){
+				alertSound.pause();
+				hasAlerted = true;
+			}, 6500);
+		}
 	}
 }
 
