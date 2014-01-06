@@ -51,6 +51,7 @@ function alignActivities() {
 		//Generic swipe handler for all directions
 		swipe:function(event, direction, distance, duration, fingerCount) {
 			var maySwipe = true;
+
 			var currentPos = $(this).offset().left;
 			hasAlerted = false;
 			if (direction == 'left') {
@@ -93,10 +94,11 @@ function alignActivities() {
 	}, 4000);
 }
 
-var alertSound = new Audio('/alert.mp3');
+var alertSound = new Audio('alert.mp3');
 
 function slideAuto() {
 	var maySwipe = true;
+
 	var currentPos = $('.activity_list').offset().left;
 	var now = new Date().getTime();
 
@@ -187,6 +189,7 @@ function buildActivity(activity) {
 		}
 
 		activityTemplateParent.append(template);
+
 		buildUserlist(activity.client, template);
 	}
 }

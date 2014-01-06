@@ -4,13 +4,10 @@ var currentGroup = 1;
 
 var clientsTop = null;
 var clientsSliderTimeout = null;
-$(document).ready(function() {
-	//loginUser(1, 2);
-	//Test = new testObject();
-	globalData = new globalData()
-	globalData.inDevelopment = false;
-	if (!globalData.inDevelopment) {
 
+var globalData = new globalData();
+$(document).ready(function() {
+	if (!globalData.inDevelopment) {
 		getGroup(currentGroup, function(groupOptions) {
 			initPage(groupOptions);
 		});
@@ -54,25 +51,31 @@ $(document).ready(function() {
 	});
 
 	$('.client_link_all').click(function () {
-		getAllActivities(currentGroup, function(activities) {
-			stopPreloader();
-			buildAgenda(activities);
-		});
+		if (!globalData.inDevelopment) {
+			getAllActivities(currentGroup, function(activities) {
+				stopPreloader();
+				buildAgenda(activities);
+			});
+		}
 	});
 
 	//refresh activities every 60 minutes accordingly(For a client if #client-1 or all if no hashtag or #all)
 	setInterval(function() {
 		var hash = window.location.hash;
 		if (hash != "" && hash != '#all') {
-			getActivitiesByClient(hash.substr(9, hash.length), function (response) {
-				stopPreloader();
-				buildAgenda(response);
-			});
+			if (!globalData.inDevelopment) {
+				getActivitiesByClient(hash.substr(9, hash.length), function (response) {
+					stopPreloader();
+					buildAgenda(response);
+				});
+			}
 		} else {
-			getAllActivities(currentGroup, function(activities) {
-				stopPreloader();
-				buildAgenda(activities);
-			});
+			if (!globalData.inDevelopment) {
+				getAllActivities(currentGroup, function(activities) {
+					stopPreloader();
+					buildAgenda(activities);
+				});
+			}
 		}
 	}, 3600000);
 
@@ -137,20 +140,26 @@ function initPage(options) {
 
 	var bgColor = (groupOptions.background != "") ? groupOptions.background : '#ffffff';
 
-	$('body').css('background-color', bgColor);
-	getClientsByGroup(groupOptions.id, function(clients) {
-		stopPreloader();
-		if (clients != null) {
-			buildClientbar(clients);
-		} else {
-			alert('geen clienten');
-		}
-	});
 	
-	getAllActivities(currentGroup, function(activities) {
-		stopPreloader();
-		buildAgenda(activities);
-	});
+	$('body').css('background-color', bgColor);
+	if (!globalData.inDevelopment) {
+		getClientsByGroup(groupOptions.id, function(clients) {
+			stopPreloader();
+			if (clients != null) {
+				buildClientbar(clients);
+			} else {
+				alert('geen clienten');
+			}
+		});
+	}
+
+	if (!globalData.inDevelopment) {
+
+		getAllActivities(currentGroup, function(activities) {
+			stopPreloader();
+			buildAgenda(activities);
+		});
+	}
 }
 
 function startPreloader() {

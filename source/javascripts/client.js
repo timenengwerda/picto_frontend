@@ -1,39 +1,25 @@
-/*function getClients(callback) {
-	var clientUrl = globalData.rootDomain + 'clients.json';
-	$.ajax({
-		url: clientUrl,
-		crossdomain: true,
-		dataType: "jsonp",
-		done: function (clients) {
-			if (callback) {
-				callback(clients);
-			}
-		},
-		fail: function () {
-			if (callback) {
-				callback(false);
-			}
-		}
-	});
-}*/
-
 function getClientsByGroup(groupId, callback) {
-	var clientUrl = globalData.rootDomain + 'groups/' + groupId + '/clients.json';
-	$.ajax({
-		url: clientUrl,
-		crossdomain: true,
-		dataType: "jsonp",
-		success: function (client) {
-			if (callback) {
-				callback(client);
+	if (globalData.inDevelopment) {
+		callback([{"id":1,"name":"Timen","birthdate":"2013-12-28","background":"#ff0000","avatar_file_name":"XLU6BPy.png","avatar_content_type":"image/png","avatar_file_size":567875,"avatar_updated_at":"2013-12-28T09:01:46.812Z","group_id":1,"created_at":"2013-12-28T09:01:48.661Z","updated_at":"2013-12-28T09:01:48.661Z","avatar_url":"/system/clients/avatars/000/000/001/thumb/XLU6BPy.png?1388221306"},{"id":2,"name":"Poes","birthdate":"2013-12-28","background":"#ff0000","avatar_file_name":"rutger.jpg","avatar_content_type":"image/jpeg","avatar_file_size":35242,"avatar_updated_at":"2013-12-28T09:02:16.676Z","group_id":1,"created_at":"2013-12-28T09:02:18.156Z","updated_at":"2013-12-28T09:02:18.156Z","avatar_url":"/system/clients/avatars/000/000/002/thumb/rutger.jpg?1388221336"},{"id":3,"name":"Laurens","birthdate":"2013-12-29","background":"#ff0000","avatar_file_name":"laurens.jpg","avatar_content_type":"image/jpeg","avatar_file_size":100821,"avatar_updated_at":"2013-12-29T21:17:32.254Z","group_id":1,"created_at":"2013-12-29T21:17:35.400Z","updated_at":"2013-12-29T21:17:35.400Z","avatar_url":"/system/clients/avatars/000/000/003/thumb/laurens.jpg?1388351852"}]);
+	} else {
+		var clientUrl = globalData.rootDomain + 'groups/' + groupId + '/clients.json';
+		$.ajax({
+			url: clientUrl,
+			crossdomain: true,
+			dataType: "jsonp",
+			success: function (client) {
+				if (callback) {
+					callback(client);
+				}
+			},
+			fail: function () {
+				if (callback) {
+					callback(false);
+				}
 			}
-		},
-		fail: function () {
-			if (callback) {
-				callback(false);
-			}
-		}
-	});
+		});	
+	}
+
 }
 
 function buildClientbar(clients) {

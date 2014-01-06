@@ -1,0 +1,9 @@
+//= require globalData
+//= require time
+//= require swipe
+//= require clock
+//= require activity
+//= require agenda
+//= require client
+//= require group
+//= require frontend

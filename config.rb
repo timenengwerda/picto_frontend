@@ -51,10 +51,17 @@ set :js_dir, 'javascripts'
 
 set :images_dir, 'images'
 
+
+  activate :sprockets
+  activate :jasmine
+
 # Build-specific configuration
 configure :build do
   # For example, change the Compass output style for deployment
   # activate :minify_css
+
+  activate :sprockets
+  activate :jasmine, fixtures_dir: "spec/javascripts/fixtures", jasmine_url: "/jasmine"
 
   # Minify Javascript on build
   # activate :minify_javascript
