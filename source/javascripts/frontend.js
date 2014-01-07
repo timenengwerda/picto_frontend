@@ -1,6 +1,6 @@
 var Test = null;
 var loggedIn = null
-var currentGroup = 1;
+var currentGroup = 2;
 
 var clientsTop = null;
 var clientsSliderTimeout = null;

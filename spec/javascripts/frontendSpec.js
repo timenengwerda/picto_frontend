@@ -73,6 +73,10 @@ describe("Frontend", function() {
 		expect(clients.length).toEqual(3);
 	});
 
+	it("first real client's name should be 'Timen'", function() {
+		expect($('.client_list li:not(".template, .client_link_all") .client_name').html()).toEqual('Timen');
+	});
+
 	it("should have 2 activities", function() {
 		expect(allActivities.length).toEqual(2);
 	});
